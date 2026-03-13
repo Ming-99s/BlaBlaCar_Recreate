@@ -1,0 +1,154 @@
+import 'package:blablacarv2/ui/core/theme/theme.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:timeline_tile/timeline_tile.dart';
+
+class RidePreferenceCard extends StatelessWidget {
+  const RidePreferenceCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    double indicatorSize = 12;
+    double circleSize = 9;
+    double afterline = 5;
+    double beforeline = 5;
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: BlaColors.white,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 5,
+            color: BlaColors.greyLight,
+
+            offset: Offset(0, 3)
+            
+          )
+        ]
+      ),
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('08:00',style: BlaTextStyles.time,),
+                      Text('10:00'),
+                      SizedBox(height: 1),
+          
+                      Text('10:00',style: BlaTextStyles.time,),
+                    ],
+                  ),
+          
+                  const SizedBox(width: 10),
+          
+                  SizedBox(
+                    width: 160,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          height: 40,
+                          child: TimelineTile(
+                            isFirst: true,
+                            indicatorStyle: IndicatorStyle(
+                              width: indicatorSize,
+                              iconStyle: IconStyle(
+                                iconData: Icons.circle,
+                                color: BlaColors.white,
+                                fontSize: circleSize,
+                              ),
+                              color: BlaColors.secondary,
+                            ),
+          
+                            afterLineStyle: LineStyle(
+                              thickness: afterline,
+                              color: BlaColors.secondary,
+                            ),
+                            endChild:  Padding(
+                              padding: EdgeInsets.only(left: 8),
+                              child: Text('Phnom Penh',style: BlaTextStyles.loc,),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 40,
+                          child: TimelineTile(
+                            isLast: true,
+                            indicatorStyle: IndicatorStyle(
+                              width: indicatorSize,
+                              color: BlaColors.secondary,
+                              iconStyle: IconStyle(
+                                iconData: Icons.circle,
+                                color: BlaColors.white,
+                                fontSize: circleSize,
+                              ),
+                            ),
+                            beforeLineStyle: LineStyle(
+                              color: BlaColors.secondary,
+                              thickness: beforeline,
+                            ),
+                            endChild: Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: Text('Siem Reap',style: BlaTextStyles.loc ,),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+          
+              Column(children: [Text('\$2.99',style: BlaTextStyles.price,), SizedBox(height: 40)]),
+            ],
+          ),
+          
+          Divider(color: BlaColors.iconLight, thickness: 0.5),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.local_taxi),
+                  SizedBox(width: 10,),
+                  CircleAvatar(
+                    child: Icon(Icons.person,color: BlaColors.white,),
+                    backgroundColor: BlaColors.backgroundAccent,
+                  ),
+                  SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Name'),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.star,size: 15,color: BlaColors.neutral,),
+                          SizedBox(width: 3,),
+                          Text('1',)
+                        ],
+                      )
+                    ],
+
+                  )
+                ],
+
+              ),
+
+              Icon(Icons.flash_on_sharp)
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
