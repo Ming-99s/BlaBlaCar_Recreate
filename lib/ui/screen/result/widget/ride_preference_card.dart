@@ -1,18 +1,23 @@
+import 'package:blablacarv2/model/ride/ride.dart';
 import 'package:blablacarv2/ui/core/theme/theme.dart';
+import 'package:blablacarv2/utils/date_time_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class RidePreferenceCard extends StatelessWidget {
-  const RidePreferenceCard({super.key});
-
+  const RidePreferenceCard({super.key,required this.ride});
+  final Ride ride;
   @override
   Widget build(BuildContext context) {
+  Duration rideDuration = ride.arrivalDateTime.difference(ride.departureDate);
+  String formattedDuration =
+        "${rideDuration.inHours}h ${rideDuration.inMinutes.remainder(60)}m";
     double indicatorSize = 12;
     double circleSize = 9;
     double afterline = 5;
     double beforeline = 5;
     return Container(
+      margin: EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: BlaColors.white,
@@ -21,13 +26,11 @@ class RidePreferenceCard extends StatelessWidget {
             blurRadius: 5,
             color: BlaColors.greyLight,
 
-            offset: Offset(0, 3)
-            
-          )
-        ]
+            offset: Offset(0, 3),
+          ),
+        ],
       ),
       padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.all(10),
       child: Column(
         children: [
           Row(
@@ -38,16 +41,16 @@ class RidePreferenceCard extends StatelessWidget {
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('08:00',style: BlaTextStyles.time,),
-                      Text('10:00'),
+                      Text(DateTimeUtils.formatTime(ride.departureDate), style: BlaTextStyles.time),
+                      Text(formattedDuration),
                       SizedBox(height: 1),
-          
-                      Text('10:00',style: BlaTextStyles.time,),
+
+                      Text(DateTimeUtils.formatTime(ride.arrivalDateTime), style: BlaTextStyles.time),
                     ],
                   ),
-          
+
                   const SizedBox(width: 10),
-          
+
                   SizedBox(
                     width: 160,
                     child: Column(
@@ -66,14 +69,17 @@ class RidePreferenceCard extends StatelessWidget {
                               ),
                               color: BlaColors.secondary,
                             ),
-          
+
                             afterLineStyle: LineStyle(
                               thickness: afterline,
                               color: BlaColors.secondary,
                             ),
-                            endChild:  Padding(
+                            endChild: Padding(
                               padding: EdgeInsets.only(left: 8),
-                              child: Text('Phnom Penh',style: BlaTextStyles.loc,),
+                              child: Text(
+                                '${ride.departureLocation}',
+                                style: BlaTextStyles.loc,
+                              ),
                             ),
                           ),
                         ),
@@ -96,7 +102,10 @@ class RidePreferenceCard extends StatelessWidget {
                             ),
                             endChild: Padding(
                               padding: const EdgeInsets.only(left: 8),
-                              child: Text('Siem Reap',style: BlaTextStyles.loc ,),
+                              child: Text(
+                                '${ride.arrivalLocation}',
+                                style: BlaTextStyles.loc,
+                              ),
                             ),
                           ),
                         ),
@@ -105,11 +114,16 @@ class RidePreferenceCard extends StatelessWidget {
                   ),
                 ],
               ),
-          
-              Column(children: [Text('\$2.99',style: BlaTextStyles.price,), SizedBox(height: 40)]),
+
+              Column(
+                children: [
+                  Text('\$2.99', style: BlaTextStyles.price),
+                  SizedBox(height: 40),
+                ],
+              ),
             ],
           ),
-          
+
           Divider(color: BlaColors.iconLight, thickness: 0.5),
 
           Row(
@@ -118,9 +132,9 @@ class RidePreferenceCard extends StatelessWidget {
               Row(
                 children: [
                   Icon(Icons.local_taxi),
-                  SizedBox(width: 10,),
+                  SizedBox(width: 10),
                   CircleAvatar(
-                    child: Icon(Icons.person,color: BlaColors.white,),
+                    child: Icon(Icons.person, color: BlaColors.white),
                     backgroundColor: BlaColors.backgroundAccent,
                   ),
                   SizedBox(width: 10),
@@ -132,21 +146,19 @@ class RidePreferenceCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.star,size: 15,color: BlaColors.neutral,),
-                          SizedBox(width: 3,),
-                          Text('1',)
+                          Icon(Icons.star, size: 15, color: BlaColors.neutral),
+                          SizedBox(width: 3),
+                          Text('1'),
                         ],
-                      )
+                      ),
                     ],
-
-                  )
+                  ),
                 ],
-
               ),
 
-              Icon(Icons.flash_on_sharp)
+              Icon(Icons.flash_on_sharp),
             ],
-          )
+          ),
         ],
       ),
     );

@@ -9,8 +9,10 @@ class RideRepository {
     return _allRides
         .where(
           (ride) =>
-              ride.departureLocation == preferences.departure &&
-              ride.arrivalLocation == preferences.arrival &&
+ride.departureLocation.name.contains(
+                preferences.departure.name,
+              ) &&
+              ride.arrivalLocation.name.contains(preferences.arrival.name) &&
               ride.availableSeats >= preferences.requestedSeats,
         )
         .toList();
